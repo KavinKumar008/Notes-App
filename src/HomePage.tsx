@@ -1,8 +1,16 @@
 import { FaSearch } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import Notes from "./Notes";
+import { useState } from "react";
 
 const HomePage = () => {
+  const [enteringNotes, setEnteringNotes] = useState("");
+  const [storingData, setStoringData] = useState([]);
+  console.log(storingData);
+
+  const handleSubmit = () => {
+    setStoringData((prev) => [...prev, enteringNotes]);
+  };
   return (
     <main className="w-full">
       <section>
@@ -13,11 +21,16 @@ const HomePage = () => {
               type="text"
               placeholder="Search"
               className="font-medium w-full outline-none"
+              onChange={(e) => setEnteringNotes(e.target.value)}
             />
           </div>
           <div className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-3xl cursor-pointer">
             <FaPlus />
-            <button type="submit" className="cursor-pointer">
+            <button
+              type="submit"
+              className="cursor-pointer"
+              onClick={handleSubmit}
+            >
               Add
             </button>
           </div>
@@ -44,7 +57,14 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-      <Notes />
+      <div className="grid grid-cols-3">
+        {storingData.map((item, ind) => (
+          <div key={ind}>
+            {" "}
+            <Notes item={item} />{" "}
+          </div>
+        ))}
+      </div>
     </main>
   );
 };
