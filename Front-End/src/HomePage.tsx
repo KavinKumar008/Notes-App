@@ -59,12 +59,12 @@ const HomePage = () => {
       });
       const data = await res.json();
       console.log(data);
-      setbackEneDelete(data.filter((item) => item.id));
+      setStoringData(data);
     } catch (err) {
       console.log(err);
     }
   };
-  console.log(backendDelete);
+  console.log("storingData before rendering Notes:", storingData);
 
   // const handleDelete = async (id) => {
   //   try {
@@ -148,7 +148,7 @@ const HomePage = () => {
       </section>
       <div className="grid grid-cols-3 gap-3">
         {storingData.map((item, ind) => (
-          <div key={ind}>
+          <div key={item._id || ind}>
             {" "}
             <Notes
               item={item}
